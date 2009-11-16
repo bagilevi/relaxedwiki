@@ -1,0 +1,14 @@
+.DS_Store
+log/*
+tmp/**/*
+tmp/*
+*.swp
+*.swo
+nbproject
+db/sphinx/*
+.project
+.idea
+.idea/**
+*~
+**/*~
+
