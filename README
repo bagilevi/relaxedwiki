@@ -1,13 +1,34 @@
-Relaxedwiki
+RelaxedWiki
 ===========
 
-Introduction goes here.
+RelaxedWiki is a Rails plugin, that adds wiki functionality to any model that
+extends RelaxDB::Document.
 
+Requirements
+============
+
+* rails 2.3.4
+* relaxdb plugin (http://github.com/bagilevi/relaxdb)
 
 Example
 =======
 
-Example goes here.
+In environment.rb make sure that relaxdb comes before relaxedwiki in the plugin
+list:
+
+  config.plugins = [ :relaxdb, :relaxedwiki, :all ]
+
+Adding wiki functionality to your model:
+
+  class Recipe < RelaxDB::Document
+
+    property :title
+    property :ingredients
+    property :preparation
+
+    acts_as_wiki_document
+
+  end
 
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Copyright (c) 2009 Levente Bagi, released under the MIT license
