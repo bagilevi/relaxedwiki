@@ -8,7 +8,7 @@ module RelaxedWiki
       base.class_eval <<-EOS, __FILE__, __LINE__ + 1
         property :wiki_content
           before_save(lambda do |doc|
-          if doc.wiki_content.nil? || doc.wiki_content.empty?
+          if !doc.respond_to?(:wiki_content) || doc.wiki_content.nil? || doc.wiki_content.empty?
             if doc.respond_to?(:generate_wiki_content) then
               doc.generate_wiki_content
             end

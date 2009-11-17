@@ -28,6 +28,17 @@ Adding wiki functionality to your model:
 
     acts_as_wiki_document
 
+    # Optional. This is run before save if wiki_content was not set.
+    def generate_wiki_content
+      self.wiki_content = "#{self.title}\n\n#{self.ingredients.join("\n")}\n\n#{preparation}"
+    end
+
+    # Optional. This is run before save if wiki_content was set.
+    def parse_wiki_content
+      self.title = "parsed title from wiki_content"
+      self.ingredients = ["parsed ingredient 1 from wiki_content", "..."]
+      self.preparateion = "parsed preparation from wiki_content"
+    end
   end
 
 
