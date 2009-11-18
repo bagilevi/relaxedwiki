@@ -21,6 +21,20 @@ module RelaxedWiki
       EOS
     end
   
+    def update_wiki_content(params)
+
+      # 1. Create new history entry
+      require File.join(File.dirname(__FILE__), 'historic_document')
+      RelaxedWiki::HistoricDocument.create_from_edit(self, params[:change])
+
+      # 2. Update content in the document
+      self.wiki_content = params[:wiki_content]
+      if self.respond_to?(:parse_wiki_content) then
+        self.parse_wiki_content
+      end
+      self.save!
+
+    end
   end
 
 end

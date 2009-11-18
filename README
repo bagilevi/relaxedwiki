@@ -41,5 +41,10 @@ Adding wiki functionality to your model:
     end
   end
 
+TODO
+====
+
+* Generators for:
+  * views/wiki/edit.haml
 
 Copyright (c) 2009 Levente Bagi, released under the MIT license
