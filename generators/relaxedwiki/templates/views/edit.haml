@@ -1,0 +1,14 @@
+=wiki_bar(@document, :edit)
+
+#editor
+  -form_tag wiki_url_for(@document, :update), :method => :post do
+    =hidden_field_tag "id", h(@document.id)
+    %div
+      =text_area_tag "document[wiki_content]", @document.wiki_content, :cols => 80, :rows => 30
+    %div
+      =hidden_field_tag "document[wiki_change][type]", "markup", :id => "document_change_type"
+      =label_tag "document_change_message", "Describe your change: "
+      =text_field_tag "document[change][message]", nil, :id => "document_change_message", :size => 40
+      =check_box_tag "document[change][is_minor]", '1', false, :id => "document_change_is_minor"
+      =label_tag "document_change_is_minor", "minor change"
+    =submit_tag "Save"

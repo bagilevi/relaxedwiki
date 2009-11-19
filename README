@@ -1,14 +1,23 @@
 RelaxedWiki
 ===========
 
-RelaxedWiki is a Rails plugin, that adds wiki functionality to any model that
+RelaxedWiki is a Rails plugin, that can add wiki functionality to any model that
 extends RelaxDB::Document.
+
+It can be used in 2 ways:
+* make your documents editable via a normal form and via the markup
+* make your documents simply editable via the markup (this way you don't need a controller)
+
+
+!!! UNDER DEVELOPMENT !!!
+
 
 Requirements
 ============
 
 * rails 2.3.4
-* relaxdb plugin (http://github.com/bagilevi/relaxdb)
+* relaxdb plugin (my fork here: http://github.com/bagilevi/relaxdb)
+* wikitext ruby extension
 * haml (for the generated views)
 * jQuery (but you can replace the jQuery code easily)
 
@@ -20,6 +29,19 @@ list:
 
   config.plugins = [ :relaxdb, :relaxedwiki, :all ]
 
+Generating controller and views:
+
+  ruby script/generate relaxedwiki
+
+Add these to the  routes.rb  file:
+
+  map.connect ':class/:slug',                 :controller => "Wiki", :action => "show"
+  # TODO: new+create
+  map.connect ':class/:slug/edit',            :controller => "Wiki", :action => "edit"
+  map.connect ':class/:slug/update',          :controller => "Wiki", :action => "update"
+  map.connect ':class/:slug/changelog',       :controller => "Wiki", :action => "changelog"
+  map.connect ':class/:slug/versions/:time',  :controller => "Wiki", :action => "version"
+
 Adding wiki functionality to your model:
 
   class Recipe < RelaxDB::Document
@@ -30,22 +52,28 @@ Adding wiki functionality to your model:
 
     acts_as_relaxedwiki_document
 
-    # Optional. This is run before save if wiki_content was not set.
+    # Optional. This is run before save if the user edited via the form.
     def generate_wiki_content
       self.wiki_content = "#{self.title}\n\n#{self.ingredients.join("\n")}\n\n#{preparation}"
     end
 
-    # Optional. This is run before save if wiki_content was set.
+    # Optional. This is run before save if the user edited the markup.
     def parse_wiki_content
       self.title = "parsed title from wiki_content"
       self.ingredients = ["parsed ingredient 1 from wiki_content", "..."]
       self.preparateion = "parsed preparation from wiki_content"
     end
+    
+    # IMPORTANT! your model has to have a 'slug' property for the routing to work.
   end
 
-TODO
-====
+You don't even need a controller, Wiki_Controller handles it all if the routing is configured.
 
-* Generators
+If you use your own controller, wrap your normal fields this way:
+  
+  wiki_hybrid_form(@recipe) do
+    # ... your normal form fields
+  end
+
 
 Copyright (c) 2009 Levente Bagi, released under the MIT license

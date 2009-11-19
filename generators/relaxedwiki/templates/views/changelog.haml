@@ -1,0 +1,11 @@
+=wiki_bar(@document, :changelog)
+
+%table
+  -@entries.each do |entry|
+    %tr
+      %td
+        =link_to h(entry.created_at), wiki_version_path(@document, entry)
+      %td.user
+        =h User.id_to_login(entry.created_by)
+      %td.log_message
+        =h entry.message
