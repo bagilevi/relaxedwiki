@@ -9,6 +9,8 @@ Requirements
 
 * rails 2.3.4
 * relaxdb plugin (http://github.com/bagilevi/relaxdb)
+* haml (for the generated views)
+* jQuery (but you can replace the jQuery code easily)
 
 Example
 =======
@@ -23,10 +25,10 @@ Adding wiki functionality to your model:
   class Recipe < RelaxDB::Document
 
     property :title
-    property :ingredients
+    property :ingredients # array
     property :preparation
 
-    acts_as_wiki_document
+    acts_as_relaxedwiki_document
 
     # Optional. This is run before save if wiki_content was not set.
     def generate_wiki_content
@@ -44,7 +46,6 @@ Adding wiki functionality to your model:
 TODO
 ====
 
-* Generators for:
-  * views/wiki/edit.haml
+* Generators
 
 Copyright (c) 2009 Levente Bagi, released under the MIT license

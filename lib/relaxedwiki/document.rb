@@ -1,6 +1,6 @@
 module RelaxedWiki
 
-  # Will be included by a model when acts_as_wiki_document is called.
+  # Will be included by a model when acts_as_relaxedwiki_document is called.
   # That model must extend RelaxDB::Document
   module Document
   
@@ -15,7 +15,6 @@ module RelaxedWiki
     end
   
     def generate_or_parse_wiki_content
-      # if !self.respond_to?(:wiki_content) || self.wiki_content.nil? || self.wiki_content.empty?
       if @wiki_change && @wiki_change[:type] == 'markup'
         if self.respond_to?(:parse_wiki_content) then
           # When user edited the markup

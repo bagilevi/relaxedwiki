@@ -2,7 +2,6 @@ require 'relaxdb'
 require 'relaxedwiki'
 require 'relaxedwiki/document'
 require 'relaxedwiki/historic_document'
-require 'relaxedwiki/changelog_controller'
 
 class RelaxDB::Document
   def self.acts_as_relaxedwiki_document
