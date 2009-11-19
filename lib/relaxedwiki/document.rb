@@ -35,7 +35,9 @@ module RelaxedWiki
     end
 
     def create_historic_document
-      RelaxedWiki::HistoricDocument.create_from_edit(self, @wiki_change)
+      if @wiki_change
+        RelaxedWiki::HistoricDocument.create_from_edit(self, @wiki_change)
+      end
     end
 
   end
