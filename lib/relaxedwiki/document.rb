@@ -39,6 +39,19 @@ module RelaxedWiki
       end
     end
 
+    def versions
+      RelaxedWiki::HistoricDocument.by_document_id_and_created_at(
+        :startkey => [self.id],
+        :endkey   => [self.id, {}],
+        :reduce     => false )
+    end
+
+    def version_by_time(timestamp)
+      RelaxedWiki::HistoricDocument.by_document_id_and_created_at(
+        :key     => [self.id, timestamp],
+        :reduce  => false )[0]
+    end
+
   end
 
 end
